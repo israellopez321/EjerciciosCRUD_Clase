@@ -1,17 +1,28 @@
 package ejercicios_parte_cuatro;
-
+/**
+ * Representa una fraccion matemática con un numerador y denominador
+ */
 public class Fraccion {
 	
 	private int numerador;
 	private int denominador;
 	
-	//Constructores
+	//Constructor inicial
 	public Fraccion(int numerador, int denominador) {
-		super();
+		if (denominador == 0) {
+			throw new IllegalArgumentException("El denominador no puede ser 0");
+		}
+		
 		this.numerador = numerador;
 		this.denominador = denominador;
+		simplificar();
 	}
 	
+	/**
+	 * Función que permite sumar dos fracciones
+	 * @param frac a sumar con otro 
+	 * @return Fraccion resultante
+	 */
 	public Fraccion suma(Fraccion frac) {
 		int num;
 		int denom;
@@ -28,6 +39,7 @@ public class Fraccion {
 		
 		 int num = this.numerador * frac.denominador - frac.numerador * this.denominador;
 		 int den = this.denominador * frac.denominador;
+		 
 		 Fraccion resultado = new Fraccion(num, den);
 		 
 		 return resultado;
@@ -57,6 +69,28 @@ public class Fraccion {
 		
 	}
 	
+	public void simplificar() {
+		
+	int MCD = mcd(numerador,denominador);
+		
+	numerador /= MCD;
+	denominador /= MCD;
+	
+	}
+	
+	private int mcd(int a, int b) {
+		
+		a = Math.abs(a);
+		b = Math.abs(b);
+		
+		while(b != 0) {
+			int temp = b;
+			b = a%b;
+			a = temp;
+			
+		}
+		 return a;
+	}
 	
 	
 	//Getter y setter
@@ -77,6 +111,11 @@ public class Fraccion {
 			throw new IllegalArgumentException("El denominador no puede ser 0");
 		}
 		this.denominador = denominador;
+	}
+
+	@Override
+	public String toString() {
+		return "Fraccion [numerador=" + numerador + ", denominador=" + denominador + "]";
 	}
 	
 	
